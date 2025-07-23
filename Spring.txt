@@ -1,0 +1,233 @@
+
+setup:
+create the project in intelji and go the maven repository select the spring context copy the maven dependency  and paste into the pom.xml file
+
+we have to config the xml means we have to create the folder in the main folder then create the file of any name .Then we have to write the code in the  app  file like the "  ApplicationContext context=new ClassPathXmlApplicationContext("xmlfilename.xml");"
+
+
+
+
+Spring
+
+it is a the dependency injection of core of Spring (inversion of control it means the spring take care of the entire object creations and object cycle)
+ 
+
+spring boot is a project of spring it have a convention over configuration embedded server, custom api
+
+api have four method get,post, put,delete
+
+spring data Jpa(Java Persistence API (JPA))
+
+we have set that what are all the class i need to create a object we have set using the xml 
+
+the jvm have heap memory spring will provide the create the extra container in the heap memory .then the object will store in that container. ioc container type application context
+
+in code we write the "@Autowired /n className objname" then it will automatically inject the dependency .There are three type of injection like field injection, constructor injection, setter injection  
+
+
+spring is backend while client will send the request server will receive and response but in this the server will divided into three part controller(it will receive the client request) ,business logic or service layer ,repository (it will interact with db) 
+ 
+we have to initialize the object with using bean. will the program execute the object will automatically created which a the object is initialize that all stored in the ioc container
+<bean> we used for the xml file for object creation
+syntax:
+<beans>
+<bean id="id_name" class="location-of class file"></bean>
+</beans>
+
+we can declare the object like  "class_name object=(class Name) context.getean(idname)"
+
+
+
+setter injection: using setter method (getter,setter)
+
+syntax:
+<beans>
+<bean id="id_name" class="location-of class file">
+<property name='name_variable' value='value'/>
+</bean>
+</beans>(this syntax used for the to initialize the value to the variable in  the class)
+
+
+
+eg for tit coupling  which means student full dependency on the pen class (package org.example;
+
+class student{
+    private  int age;
+    private  Pan pan;
+    public Pan getPan() {
+        return pan;
+    }
+
+    public void setPan(Pan pan) {
+        this.pan = pan;
+    }
+
+
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+
+
+    public void show(){
+        System.out.println("Student");
+    }
+}
+package org.example;
+
+public class Pan {
+    public Pan(){
+        System.out.println("Pan is created");
+    }
+    void writeEaxm(){
+        System.out.println("Writing in pen");
+    }
+}
+package org.example;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+/**
+ * Hello world!
+ *
+ */
+public class App 
+{
+    public static void main( String[] args )
+    {
+        ApplicationContext context=new ClassPathXmlApplicationContext("Springxml.xml");
+        student stobj=(student) context.getBean("st1");
+        //stobj.setAge(19);
+
+        stobj.getPan().writeEaxm();
+    }
+}
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<bean id="st1" class="org.example.student">
+<property name="age" value="20"/>
+    <property name="pan" ref="pan1"/>
+</bean>
+    <bean id="pan1" class="org.example.Pan">
+    </bean>
+
+</beans>
+)
+
+
+
+loose coupling: it have less dependency
+tight coupling: it have high dependency
+
+autowireing : it means the create the property of name ,id it automatically created .it have two method to implement is byname, byType
+syntax:
+<bean id='st1' class='org.example.student' autowire="byName"></bean> 
+the assign writer to any class id;
+<bean id='writer' class='org.example.Pen' ></bean>
+
+byType: means the if we have three type identify the same writer type so then choose the primary type we declare it
+syntax:
+<bean id="st1" class="org.example.student">
+<property name="age" value="20"/>
+    <property name="pan" ref="writer"/>
+</bean>
+
+<bean id='st1' class='org.example.student' autowire="byType"></bean> 
+the assign writer to any class id;
+<bean id='writer' class='org.example.Pen' primary=true ></bean>
+<bean id='Pen' class='org.example.Pen' ></bean>
+
+
+constructor injection: we use the parameter constructor .it have two type that all-args-constructor, No-arg-constructor 
+
+
+
+to find the configuration file for object configuration in that file we have to initialize the bean of the classes 
+syntax: @Bean
+    public student Student(){
+        return new student();
+    }
+then in  student file initialize the ApplicationContext context=new AnnotationConfigAppplicationContext(Confilefile.class);
+Student st=context.getBean(student.class);
+
+
+we can give a name of id in the context.getBean("st1")
+then change in the config file   @Bean(name = "st")
+    public student Student(@Autowired writer write){
+        student Student=new student();
+        Student.setAge(20);
+        Student.setWrite(write);
+        return Student;
+    }
+
+
+If we give two primary for the two or more classes then we use the qualifier 
+syntax:
+public student Student(@Qualifier("pencil") writer write){
+        student Student=new student();
+        Student.setAge(20);
+        Student.setWrite(write);
+        return Student;
+    }
+
+
+stereotype Annotations use this we can easy to manage the object of the class in previous we create the object in the configuration file but using the stereotype annotation we can manage object in single line syntax 
+eg: in any class file you have to create the object means on that file use above : @Component (its from org.springframework.stereotype package)
+and we have to update the configuration file because the we remove the Bean declare in the configuration file so we declare the @ComponentScan(org.example) then it will scan all the class file inside the org 
+
+We have give the primary ,qualifier to the class and assign value of filed in the class using @Autowried in the Student class  which means filed class  
+if value assign means @Value annotation
+
+
+
+SpringBoot:
+conversion over configuration
+It have embed server
+springboot one of the spring projects
+
+Spring store the object in the ioc or spring container
+@component is used for to tell spring this class object managed by spring
+
+scope:
+Singleton-> it the two different object reference the same object space (by default will singleton)
+prototype -> it will two different object reference the different object space (eg.. @scope("prototype"))
+
+
+
+dependency injection:
+filed injection->in filed we link with dependency class with another class using the autowired  
+Setter injection-> it used in setter method to assign object for class using @Autowried
+
+
+loose coupling -> class not tightly depend on another class we can use interface for the loose coupling
+
+API- Application programming interface  and use the Restful api 
+
+Server - It has three part controller (it will get the client request),service (handling the business logic),repository (interact with database)
+
+
+
+the spring project setup first go to Browsers "start.spring.io" link  
+
+to get the data form the controller first write the controller code and give @RESTController 
+To set the location for the method means give that @getMapping("/")
+
+front controller used to direct to the controller
+service class give the  @Service (it self the component)
+
+if we display the object in the monitor it show the json format because the "Jackson" package automatically convert into json 
+
+@pathVariable(variable name) it will get the parameter value  of the api
+
+@requestBody() Map<String,Object>  get the body of the content api
+ 
