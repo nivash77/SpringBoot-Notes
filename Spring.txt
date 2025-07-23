@@ -230,4 +230,10 @@ if we display the object in the monitor it show the json format because the "Jac
 @pathVariable(variable name) it will get the parameter value  of the api
 
 @requestBody() Map<String,Object>  get the body of the content api
+@Entity: Marks this class as a JPA entity 
+@Table(name = "users"): Specifies the table name in the DB as users
+@Id: This is the primary key for the table.
+@GeneratedValue(strategy = GenerationType.IDENTITY): Automatically generates the ID (auto-increment in MySQL/Postgres)
+
+
  
