@@ -235,5 +235,6 @@ if we display the object in the monitor it show the json format because the "Jac
 @Id: This is the primary key for the table.
 @GeneratedValue(strategy = GenerationType.IDENTITY): Automatically generates the ID (auto-increment in MySQL/Postgres)
 
+@Column(nullable=false)-> The particluar field must have required value
 
  
