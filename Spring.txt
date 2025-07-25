@@ -240,5 +240,7 @@ if we display the object in the monitor it show the json format because the "Jac
 JPARepository -> user this class means it have pre-bulid queries for all curd operations and some queries also have it
 MongoRepository -> it same as JPARepository but it will used for mongodb include pre-bulid queries
 
+BeanFactory:
+    BeanFactory is the simplest container and is used to create and manage beans. It is a basic container that initializes beans .It is used for lightweight applications where the overhead of ApplicationContext is not required.
 
  
