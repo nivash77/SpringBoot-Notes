@@ -248,4 +248,8 @@ ORM allows developers to work with Java objects to represent entities in the app
 ORM-> tool automatically convert the object into the values in the table
 oRM have the hibernate,sql lcherry,entity ,eclipse link frameworks
 
+jpa.show-> if this value is true means it will show the how the sql query behave behind the screen
+POJOs-> Plain Old Java Objects are simple java object  without any special framework-specific interface or classes.It will makes the code more readable,testable and less tied to the framework.
+
+
  
