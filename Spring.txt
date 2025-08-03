@@ -254,7 +254,7 @@ POJOs-> Plain Old Java Objects are simple java object  without any special frame
 jpa will have some query only if we need extra queries like combinations of values in that sql means we use the native query
 Native query means sql queries -> we have annotation like @query
 
-syntax:  @Query(nativeQuery =true  ,"query---")
+syntax:  @Query(nativeQuery =true  ,value="query---")
 nativeQuery true means we tell that its a sql query to spring
 
  
