@@ -251,5 +251,10 @@ oRM have the hibernate,sql lcherry,entity ,eclipse link frameworks
 jpa.show-> if this value is true means it will show the how the sql query behave behind the screen
 POJOs-> Plain Old Java Objects are simple java object  without any special framework-specific interface or classes.It will makes the code more readable,testable and less tied to the framework.
 
+jpa will have some query only if we need extra queries like combinations of values in that sql means we use the native query
+Native query means sql queries -> we have annotation like @query
+
+syntax:  @Query(nativeQuery =true  ,"query---")
+nativeQuery true means we tell that its a sql query to spring
 
  
