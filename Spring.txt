@@ -258,3 +258,12 @@ syntax:  @Query(nativeQuery =true  ,value="query---")
 nativeQuery true means we tell that its a sql query to spring
 
  
+# http response status codes
+-> informational responses (100-199)
+-> Successful responses (200-299)
+-> Redirection messages (300-399)
+-> Client error responses (400-499)
+-> Server error responses (500-599)
+
+
+connect frontend and springboot using the crossorigin Annotations (@CorssOrigin(origin="frontend link"))
