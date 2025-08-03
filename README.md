@@ -57,8 +57,8 @@ Welcome to my Spring & Spring Boot learning repository! This repository contains
 
  contact me-
 Nivash 
-linkedin-linkedin.com/in/nivash-m-2k4
-nivashmareesh07@gmail.com
+- linkedin-linkedin.com/in/nivash-m-2k4  
+- nivashmareesh07@gmail.com
 
 
 
