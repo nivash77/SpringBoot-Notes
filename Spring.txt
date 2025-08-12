@@ -1,285 +1,264 @@
+📘 SPRING & SPRING BOOT NOTES
 
-setup:
-create the project in intelji and go the maven repository select the spring context copy the maven dependency  and paste into the pom.xml file
+------------------------------------------------------------
+1. SETUP
+------------------------------------------------------------
+- Create the project in IntelliJ.
+- Go to Maven Repository, select Spring Context, copy the Maven dependency and paste into the pom.xml file.
 
-we have to config the xml means we have to create the folder in the main folder then create the file of any name .Then we have to write the code in the  app  file like the "  ApplicationContext context=new ClassPathXmlApplicationContext("xmlfilename.xml");"
+XML CONFIGURATION:
+We have to create a folder in the main folder, then create the file of any name.
+Then in the app file:
+    ApplicationContext context = new ClassPathXmlApplicationContext("xmlfilename.xml");
 
+------------------------------------------------------------
+2. SPRING
+------------------------------------------------------------
+- Spring is the dependency injection core of Spring (Inversion of Control means Spring takes care of object creation and lifecycle).
+- Spring Boot is a project of Spring, it has convention over configuration, embedded server, custom API.
+- API methods: GET, POST, PUT, DELETE.
+- Spring Data JPA (Java Persistence API):
+    We can set what classes to create objects using XML.
+- JVM has heap memory, Spring creates an extra container in the heap memory (IoC container type: ApplicationContext).
 
+@Autowired
+className objname
+(Automatically injects dependencies: field injection, constructor injection, setter injection.)
 
+SPRING MVC:
+- Controller: Receives client request.
+- Service: Business logic.
+- Repository: Interacts with DB.
 
-Spring
+Bean initialization in XML:
+<bean> is used for object creation in XML.
 
-it is a the dependency injection of core of Spring (inversion of control it means the spring take care of the entire object creations and object cycle)
- 
-
-spring boot is a project of spring it have a convention over configuration embedded server, custom api
-
-api have four method get,post, put,delete
-
-spring data Jpa(Java Persistence API (JPA))
-
-we have set that what are all the class i need to create a object we have set using the xml 
-
-the jvm have heap memory spring will provide the create the extra container in the heap memory .then the object will store in that container. ioc container type application context
-
-in code we write the "@Autowired /n className objname" then it will automatically inject the dependency .There are three type of injection like field injection, constructor injection, setter injection  
-
-
-spring is backend while client will send the request server will receive and response but in this the server will divided into three part controller(it will receive the client request) ,business logic or service layer ,repository (it will interact with db) 
- 
-we have to initialize the object with using bean. will the program execute the object will automatically created which a the object is initialize that all stored in the ioc container
-<bean> we used for the xml file for object creation
-syntax:
+SYNTAX:
 <beans>
-<bean id="id_name" class="location-of class file"></bean>
+    <bean id="id_name" class="location-of class file"></bean>
 </beans>
 
-we can declare the object like  "class_name object=(class Name) context.getean(idname)"
+Getting bean in code:
+class_name object = (class_name) context.getBean(id_name);
 
+------------------------------------------------------------
+3. SETTER INJECTION
+------------------------------------------------------------
+Using setter method (getter/setter).
 
-
-setter injection: using setter method (getter,setter)
-
-syntax:
+SYNTAX:
 <beans>
-<bean id="id_name" class="location-of class file">
-<property name='name_variable' value='value'/>
-</bean>
-</beans>(this syntax used for the to initialize the value to the variable in  the class)
+    <bean id="id_name" class="location-of class file">
+        <property name="name_variable" value="value"/>
+    </bean>
+</beans>
 
+------------------------------------------------------------
+4. TIGHT COUPLING EXAMPLE
+------------------------------------------------------------
+package org.example;
 
-
-eg for tit coupling  which means student full dependency on the pen class (package org.example;
-
-class student{
-    private  int age;
-    private  Pan pan;
-    public Pan getPan() {
-        return pan;
-    }
-
-    public void setPan(Pan pan) {
-        this.pan = pan;
-    }
-
-
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-
-
-    public void show(){
-        System.out.println("Student");
-    }
+class student {
+    private int age;
+    private Pan pan;
+    public Pan getPan() { return pan; }
+    public void setPan(Pan pan) { this.pan = pan; }
+    public int getAge() { return age; }
+    public void setAge(int age) { this.age = age; }
+    public void show() { System.out.println("Student"); }
 }
+
 package org.example;
 
 public class Pan {
-    public Pan(){
-        System.out.println("Pan is created");
-    }
-    void writeEaxm(){
-        System.out.println("Writing in pen");
-    }
+    public Pan() { System.out.println("Pan is created"); }
+    void writeExam() { System.out.println("Writing in pen"); }
 }
+
 package org.example;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-/**
- * Hello world!
- *
- */
-public class App 
-{
-    public static void main( String[] args )
-    {
-        ApplicationContext context=new ClassPathXmlApplicationContext("Springxml.xml");
-        student stobj=(student) context.getBean("st1");
-        //stobj.setAge(19);
-
-        stobj.getPan().writeEaxm();
+public class App {
+    public static void main(String[] args) {
+        ApplicationContext context = new ClassPathXmlApplicationContext("Springxml.xml");
+        student stobj = (student) context.getBean("st1");
+        stobj.getPan().writeExam();
     }
 }
+
+XML:
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="
-        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+                           http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-<bean id="st1" class="org.example.student">
-<property name="age" value="20"/>
-    <property name="pan" ref="pan1"/>
-</bean>
-    <bean id="pan1" class="org.example.Pan">
+    <bean id="st1" class="org.example.student">
+        <property name="age" value="20"/>
+        <property name="pan" ref="pan1"/>
     </bean>
 
+    <bean id="pan1" class="org.example.Pan"/>
 </beans>
-)
 
+------------------------------------------------------------
+5. LOOSE COUPLING VS TIGHT COUPLING
+------------------------------------------------------------
+- Loose coupling: less dependency.
+- Tight coupling: high dependency.
 
+------------------------------------------------------------
+6. AUTOWIRING
+------------------------------------------------------------
+Autowiring automatically assigns properties.
 
-loose coupling: it have less dependency
-tight coupling: it have high dependency
-
-autowireing : it means the create the property of name ,id it automatically created .it have two method to implement is byname, byType
-syntax:
+BY NAME:
 <bean id='st1' class='org.example.student' autowire="byName"></bean> 
-the assign writer to any class id;
-<bean id='writer' class='org.example.Pen' ></bean>
+<bean id='writer' class='org.example.Pen'></bean>
 
-byType: means the if we have three type identify the same writer type so then choose the primary type we declare it
-syntax:
+BY TYPE:
 <bean id="st1" class="org.example.student">
-<property name="age" value="20"/>
+    <property name="age" value="20"/>
     <property name="pan" ref="writer"/>
 </bean>
 
 <bean id='st1' class='org.example.student' autowire="byType"></bean> 
-the assign writer to any class id;
-<bean id='writer' class='org.example.Pen' primary=true ></bean>
-<bean id='Pen' class='org.example.Pen' ></bean>
+<bean id='writer' class='org.example.Pen' primary=true></bean>
+<bean id='Pen' class='org.example.Pen'></bean>
 
+------------------------------------------------------------
+7. CONSTRUCTOR INJECTION
+------------------------------------------------------------
+We use parameter constructor (all-args-constructor, no-arg-constructor).
 
-constructor injection: we use the parameter constructor .it have two type that all-args-constructor, No-arg-constructor 
+Java-based configuration example:
+@Bean
+public student Student() {
+    return new student();
+}
 
+ApplicationContext context = new AnnotationConfigApplicationContext(Configfile.class);
+Student st = context.getBean(student.class);
 
+Giving bean a name:
+@Bean(name = "st")
+public student Student(@Autowired writer write) {
+    student Student = new student();
+    Student.setAge(20);
+    Student.setWrite(write);
+    return Student;
+}
 
-to find the configuration file for object configuration in that file we have to initialize the bean of the classes 
-syntax: @Bean
-    public student Student(){
-        return new student();
-    }
-then in  student file initialize the ApplicationContext context=new AnnotationConfigAppplicationContext(Confilefile.class);
-Student st=context.getBean(student.class);
+Using Qualifier:
+public student Student(@Qualifier("pencil") writer write) {
+    student Student = new student();
+    Student.setAge(20);
+    Student.setWrite(write);
+    return Student;
+}
 
+------------------------------------------------------------
+8. STEREOTYPE ANNOTATIONS
+------------------------------------------------------------
+- @Component → Class object managed by Spring.
+- @ComponentScan("org.example") → Scan package for components.
+- @Primary, @Qualifier → To resolve multiple bean conflicts.
+- @Value → Assign value to field.
 
-we can give a name of id in the context.getBean("st1")
-then change in the config file   @Bean(name = "st")
-    public student Student(@Autowired writer write){
-        student Student=new student();
-        Student.setAge(20);
-        Student.setWrite(write);
-        return Student;
-    }
+------------------------------------------------------------
+9. SPRINGBOOT
+------------------------------------------------------------
+- Convention over configuration.
+- Embedded server.
+- Stores objects in IoC container.
+- Scope:
+    - Singleton → Same object reference (default).
+    - Prototype → Different objects.
 
+------------------------------------------------------------
+10. DEPENDENCY INJECTION TYPES
+------------------------------------------------------------
+- Field injection (@Autowired on field)
+- Setter injection (@Autowired on setter)
+- Loose coupling using interface.
 
-If we give two primary for the two or more classes then we use the qualifier 
-syntax:
-public student Student(@Qualifier("pencil") writer write){
-        student Student=new student();
-        Student.setAge(20);
-        Student.setWrite(write);
-        return Student;
-    }
+------------------------------------------------------------
+11. API
+------------------------------------------------------------
+- API: Application Programming Interface (RESTful API).
+- Controller: Receives client request.
+- Service: Business logic.
+- Repository: DB interaction.
 
+Start a Spring Boot project: https://start.spring.io
 
-stereotype Annotations use this we can easy to manage the object of the class in previous we create the object in the configuration file but using the stereotype annotation we can manage object in single line syntax 
-eg: in any class file you have to create the object means on that file use above : @Component (its from org.springframework.stereotype package)
-and we have to update the configuration file because the we remove the Bean declare in the configuration file so we declare the @ComponentScan(org.example) then it will scan all the class file inside the org 
+Example Controller:
+@RestController
+@GetMapping("/")
+public String home() { return "Hello"; }
 
-We have give the primary ,qualifier to the class and assign value of filed in the class using @Autowried in the Student class  which means filed class  
-if value assign means @Value annotation
+- Front Controller → directs to controller.
+- @Service → marks service class.
+- Jackson → automatically converts objects to JSON.
 
+@PathVariable → get parameter value from API.
+@RequestBody Map<String,Object> → get request body.
 
+------------------------------------------------------------
+12. JPA ANNOTATIONS
+------------------------------------------------------------
+- @Entity
+- @Table(name = "users")
+- @Id
+- @GeneratedValue(strategy = GenerationType.IDENTITY)
+- @Column(nullable=false)
 
-SpringBoot:
-conversion over configuration
-It have embed server
-springboot one of the spring projects
-
-Spring store the object in the ioc or spring container
-@component is used for to tell spring this class object managed by spring
-
-scope:
-Singleton-> it the two different object reference the same object space (by default will singleton)
-prototype -> it will two different object reference the different object space (eg.. @scope("prototype"))
-
-
-
-dependency injection:
-filed injection->in filed we link with dependency class with another class using the autowired  
-Setter injection-> it used in setter method to assign object for class using @Autowried
-
-
-loose coupling -> class not tightly depend on another class we can use interface for the loose coupling
-
-API- Application programming interface  and use the Restful api 
-
-Server - It has three part controller (it will get the client request),service (handling the business logic),repository (interact with database)
-
-
-
-the spring project setup first go to Browsers "start.spring.io" link  
-
-to get the data form the controller first write the controller code and give @RESTController 
-To set the location for the method means give that @getMapping("/")
-
-front controller used to direct to the controller
-service class give the  @Service (it self the component)
-
-if we display the object in the monitor it show the json format because the "Jackson" package automatically convert into json 
-
-@pathVariable(variable name) it will get the parameter value  of the api
-
-@requestBody() Map<String,Object>  get the body of the content api
-@Entity: Marks this class as a JPA entity 
-@Table(name = "users"): Specifies the table name in the DB as users
-@Id: This is the primary key for the table.
-@GeneratedValue(strategy = GenerationType.IDENTITY): Automatically generates the ID (auto-increment in MySQL/Postgres)
-
-@Column(nullable=false)-> The particluar field must have required value
-
-JPARepository -> user this class means it have pre-bulid queries for all curd operations and some queries also have it
-MongoRepository -> it same as JPARepository but it will used for mongodb include pre-bulid queries
+------------------------------------------------------------
+13. SPRING DATA
+------------------------------------------------------------
+- JpaRepository → SQL DB with pre-built queries.
+- MongoRepository → MongoDB with pre-built queries.
 
 BeanFactory:
-    BeanFactory is the simplest container and is used to create and manage beans. It is a basic container that initializes beans .It is used for lightweight applications where the overhead of ApplicationContext is not required.
+- Simplest container for creating & managing beans.
 
-repository interface extends from JPA (Java Persistence API) it have the ORM(object relational Mapping )
-ORM allows developers to work with Java objects to represent entities in the application and map them to the corresponding tables in a relational database.
-ORM-> tool automatically convert the object into the values in the table
-oRM have the hibernate,sql lcherry,entity ,eclipse link frameworks
+Repository:
+- Extends JPA, ORM maps objects to tables.
+- ORM tools: Hibernate, SQLJPA, EclipseLink.
 
-jpa.show-> if this value is true means it will show the how the sql query behave behind the screen
-POJOs-> Plain Old Java Objects are simple java object  without any special framework-specific interface or classes.It will makes the code more readable,testable and less tied to the framework.
+jpa.show = true → shows SQL queries executed.
 
-jpa will have some query only if we need extra queries like combinations of values in that sql means we use the native query
-Native query means sql queries -> we have annotation like @query
+POJOs → Plain Old Java Objects.
 
-syntax:  @Query(nativeQuery =true  ,value="query---")
-nativeQuery true means we tell that its a sql query to spring
+Native Query:
+@Query(nativeQuery = true, value = "SQL query here")
 
- 
-# http response status codes
--> informational responses (100-199)
--> Successful responses (200-299)
--> Redirection messages (300-399)
--> Client error responses (400-499)
--> Server error responses (500-599)
+------------------------------------------------------------
+14. HTTP STATUS CODES
+------------------------------------------------------------
+- Informational: 100-199
+- Success: 200-299
+- Redirection: 300-399
+- Client Error: 400-499
+- Server Error: 500-599
 
+------------------------------------------------------------
+15. FRONTEND & SPRINGBOOT
+------------------------------------------------------------
+- Use @CrossOrigin(origin="frontend link") for connecting frontend.
 
-connect frontend and springboot using the crossorigin Annotations (@CorssOrigin(origin="frontend link"))
+------------------------------------------------------------
+16. SERVLET
+------------------------------------------------------------
+- Servlet is a Java program running on a server.
+- Handles client requests and responses.
+- Server-side only.
 
-#Servlet
-    ->Servlet is java program it will run the web server or application server
-    ->It will handle the client request and process them generates dynamic responses
-    ->Servlet work on server-side only
-
-    - servlets is work on client will send the request then server will have the helper application(web container) if the data or file based on the request is not in the server means the web container will get the data from the servlet(web container connect with servlet when we have to config into the deployment descriptor web.xml file and This file maps URLs to servlets)
-    - From Servlet 3.0, servlet configuration can also be done using annotations. Instead of using web.xml, we can configure the servlet using the @WebServlet annotations.
-    -> servlets workflow:
-        -> The Clients send the request to the Web Server.
-        ->The Web Server receives the request.
-        ->The Web Server passes the request to the corresponding servlet.
-        ->The Servlet processes the request and generates the response in the form of output.
-        ->The Servlet sends the response back to the webserver.
-        ->The Web Server sends the response back to the client and the client browser displays it on the screen.
-    
+Servlet Workflow:
+1. Client sends request.
+2. Web server checks for data, if not present, passes to web container.
+3. Web container connects to servlet (configured in web.xml or with @WebServlet).
+4. Servlet processes and generates output.
+5. Web server sends output to client.
