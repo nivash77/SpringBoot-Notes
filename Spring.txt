@@ -262,3 +262,121 @@ Servlet Workflow:
 3. Web container connects to servlet (configured in web.xml or with @WebServlet).
 4. Servlet processes and generates output.
 5. Web server sends output to client.
+
+---------------------------------
+17. Spring Bean Scopes (Detailed)
+---------------------------------
+Spring supports multiple bean scopes:
+
+1. singleton → One bean instance per Spring IoC container (default).
+2. prototype → A new bean instance is created every time it is requested.
+3. request → One bean instance per HTTP request (valid in web-aware Spring contexts).
+4. session → One bean instance per HTTP session.
+5. application → One bean instance per ServletContext.
+6. websocket → One bean instance per WebSocket session.
+
+Annotations:
+@Scope("singleton")
+@Scope("prototype")
+
+---------------------------------
+
+18. Spring Boot Annotations (Common)
+------------------------------------
+1. @SpringBootApplication → Combines @Configuration, @EnableAutoConfiguration, and @ComponentScan.
+2. @EnableScheduling → Enables scheduling with @Scheduled.
+3. @EnableCaching → Enables caching support with @Cacheable and related annotations.
+4. @RestControllerAdvice → Used for global exception handling in REST APIs.
+5. @Transactional → Marks a method or class for transaction management.
+
+---------------------------------
+
+19. Spring Boot Application Properties
+--------------------------------------
+Common configuration in application.properties or application.yml:
+
+Example:
+server.port=8081
+spring.datasource.url=jdbc:mysql://localhost:3306/db
+spring.datasource.username=root
+spring.datasource.password=pass
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+
+---------------------------------
+
+20. Lifecycle of a Spring Bean
+------------------------------
+1. Bean is instantiated.
+2. Dependencies are injected (populate properties).
+3. BeanNameAware and BeanFactoryAware callbacks are called (if implemented).
+4. @PostConstruct methods are executed.
+5. Bean is ready for use.
+6. On context shutdown, @PreDestroy methods are executed.
+
+---------------------------------
+
+21. Exception Handling in Spring Boot
+-------------------------------------
+1. @ExceptionHandler → Handles specific exceptions in a controller.
+2. @ControllerAdvice / @RestControllerAdvice → Handles exceptions globally.
+3. ResponseEntity → Used to return a custom HTTP status and body.
+
+Example:
+@ExceptionHandler(ResourceNotFoundException.class)
+public ResponseEntity<String> handleNotFound(ResourceNotFoundException ex) {
+    return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+}
+
+---------------------------------
+
+22. Spring Boot Profiles
+------------------------
+Profiles allow environment-specific configurations.
+
+application.properties:
+spring.profiles.active=dev
+
+Example usage:
+@Profile("dev")
+@Component
+public class DevBean {
+    // development-specific logic
+}
+
+---------------------------------
+
+23. Testing in Spring Boot
+--------------------------
+1. @SpringBootTest → Loads the full application context for integration tests.
+2. @WebMvcTest → Loads only the controller layer for testing.
+3. MockMvc → Allows performing mock HTTP requests in tests.
+
+Example:
+@Autowired
+private MockMvc mockMvc;
+
+@Test
+public void testGet() throws Exception {
+    mockMvc.perform(get("/api/test"))
+           .andExpect(status().isOk());
+}
+
+---------------------------------
+
+24. Security Basics in Spring Boot
+----------------------------------
+1. Spring Security can handle both JWT and session-based authentication.
+2. @EnableWebSecurity → Enables custom security configuration.
+3. Common filters:
+   - Authentication filter → Validates user credentials or tokens.
+   - Authorization filter → Checks user permissions.
+4. Password encoding: BCryptPasswordEncoder for hashing passwords.
+5. Role-based access: @PreAuthorize, @Secured annotations.
+
+Example:
+@PreAuthorize("hasRole('ADMIN')")
+public void adminOnlyMethod() {
+    // Admin logic
+}
+
