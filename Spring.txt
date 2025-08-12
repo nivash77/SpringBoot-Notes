@@ -267,3 +267,19 @@ nativeQuery true means we tell that its a sql query to spring
 
 
 connect frontend and springboot using the crossorigin Annotations (@CorssOrigin(origin="frontend link"))
+
+#Servlet
+    ->Servlet is java program it will run the web server or application server
+    ->It will handle the client request and process them generates dynamic responses
+    ->Servlet work on server-side only
+
+    - servlets is work on client will send the request then server will have the helper application(web container) if the data or file based on the request is not in the server means the web container will get the data from the servlet(web container connect with servlet when we have to config into the deployment descriptor web.xml file and This file maps URLs to servlets)
+    - From Servlet 3.0, servlet configuration can also be done using annotations. Instead of using web.xml, we can configure the servlet using the @WebServlet annotations.
+    -> servlets workflow:
+        -> The Clients send the request to the Web Server.
+        ->The Web Server receives the request.
+        ->The Web Server passes the request to the corresponding servlet.
+        ->The Servlet processes the request and generates the response in the form of output.
+        ->The Servlet sends the response back to the webserver.
+        ->The Web Server sends the response back to the client and the client browser displays it on the screen.
+    
