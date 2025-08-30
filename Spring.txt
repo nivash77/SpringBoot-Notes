@@ -380,3 +380,7 @@ public void adminOnlyMethod() {
     // Admin logic
 }
 
+
+Connection pool-> It have the connection between the server and db with needed requirements .
+
+H2-> H2 is the database for stored the data in the tables in structure in tempory because when the start application it created again.
