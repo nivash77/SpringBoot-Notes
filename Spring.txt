@@ -384,3 +384,5 @@ public void adminOnlyMethod() {
 Connection pool-> It have the connection between the server and db with needed requirements .
 
 H2-> H2 is the database for stored the data in the tables in structure in tempory because when the start application it created again.
+SpringBoot have the front controller -> because the if multiple controller have means  without front controller we have to create the multiple servlet that's while we use the front controller but when use SpringBoot it have default we don't create it;
+dispatch servlet will Receive the client request and it will send to particular controller it decide that controller using some set of configurations
