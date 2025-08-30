@@ -50,7 +50,11 @@ Welcome to my Spring & Spring Boot learning repository! This repository contains
 - API: @GetMapping, @PostMapping, etc.
 - JSON auto-conversion via Jackson
 - Input: @RequestBody, @PathVariable
-
+  
+->SERVLET
+->Bean Scopes
+->Exception Handling in Spring Boot
+->Spring Boot Profiles
 # Notes
 - Bean scopes: singleton (default), prototype
 - Use start.spring.io to bootstrap Spring Boot apps
