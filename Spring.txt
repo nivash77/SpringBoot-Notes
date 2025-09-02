@@ -393,3 +393,13 @@ This acts as the front controller in Spring MVC. It receives all incoming reques
 
 JSP:
 JavaServer Pages (JSP) is a server-side technology that creates dynamic web applications. It allows developers to embed Java code directly into HTML pages and it makes web development more efficient.
+
+ModelAttribute annotation -> It will assign the data in the model that object type.If we assign the @ModelAttribute before the requestmapping methods execute it will execute first
+
+Prefix-> we use for the if the jsp or other file in folder means we have mention it
+Suffix-> we use for assign the file extension dynamic
+
+In Maven project:
+    we have to configure all requirements in the xml filters
+    InternalResourceViewResolver is used for the identify the views
+requestmapping annotation is used for get the request it will acts both get,PostConstruct
